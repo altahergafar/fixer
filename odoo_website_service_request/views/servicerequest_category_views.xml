@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- servicerequest Category Tree View -->
+    <record id="servicerequest_category_view_tree" model="ir.ui.view">
+        <field name="name">servicerequest.category.view.tree</field>
+        <field name="model">servicerequest.category</field>
+        <field name="arch" type="xml">
+            <tree string="Categories" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <!--    Action for servicerequest category model.-->
+    <record id="action_servicerequest_category" model="ir.actions.act_window">
+        <field name="name">Categories</field>
+        <field name="res_model">servicerequest.category</field>
+        <field name="view_mode">tree</field>
+    </record>
+</odoo>

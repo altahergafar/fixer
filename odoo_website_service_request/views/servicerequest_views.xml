@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- servicerequest Menu -->
+    <menuitem id="menu_servicerequest" name="Service Request"
+              web_icon="odoo_website_service_request,static/description/icon.png"
+              sequence="1"/>
+    <!-- Tickets Submenu -->
+    <menuitem id="servicerequest_management" parent="menu_servicerequest" name="Service Request"
+              action="ticket_servicerequest_action" sequence="2"/>
+    <!-- My Tickets -->
+    <menuitem id="servicerequest_tickets_my" parent="servicerequest_management"
+              name="My Request"
+              action="ticket_servicerequest_action_my" sequence="1"/>
+    <!-- All Tickets -->
+    <menuitem id="servicerequest_tickets" parent="servicerequest_management"
+              name="All Service Request"
+              action="ticket_servicerequest_action" sequence="2"
+              groups="odoo_website_service_request.servicerequest_manager"/>
+    <!-- servicerequest Team Menu -->
+    <menuitem id="menu_servicerequest_team" name="Service Request Team"
+              action="action_servicerequest_team"
+              parent="servicerequest_management" sequence="10"/>
+    <!-- Configuration Menu -->
+    <menuitem id="menu_servicerequest_configuration" name="Configuration"
+              sequence="50" parent="menu_servicerequest"/>
+    <!-- servicerequest Team Configuration -->
+    <menuitem id="menu_servicerequest_team" name="Service Request Team"
+              action="action_servicerequest_team"
+              parent="menu_servicerequest_configuration" sequence="10"/>
+    <!-- Categories Configuration -->
+    <menuitem id="menu_servicerequest_categories" name="Categories"
+              action="action_servicerequest_category"
+              groups="odoo_website_service_request.group_show_category"
+              parent="menu_servicerequest_configuration" sequence="10"/>
+    <!-- Settings Configuration -->
+    <menuitem id="menu_servicerequest_settings" name="Settings"
+              action="action_servicerequest_general_settings"
+              parent="menu_servicerequest_configuration" sequence="1"/>
+    <!-- Teams Configuration -->
+    <menuitem id="menu_servicerequest_team" name="Teams"
+              action="action_servicerequest_team"
+              parent="menu_servicerequest_configuration" sequence="3"/>
+    <!-- Tags Configuration -->
+    <menuitem id="menu_servicerequest_tag" name="Tags"
+              action="action_servicerequest_tag"
+              parent="menu_servicerequest_configuration" sequence="4"/>
+    <!-- Stages Configuration -->
+    <menuitem id="menu_servicerequest_stage" name="Stages"
+              action="action_servicerequest_stage"
+              parent="menu_servicerequest_configuration" sequence="5"/>
+    <!-- Types Configuration -->
+    <menuitem id="menu_servicerequest_types" name="Types"
+              action="action_servicerequest_type"
+              parent="menu_servicerequest_configuration" sequence="6"/>
+    <!-- servicerequest Report -->
+    <menuitem id="report_servicerequest" name="Report" parent="menu_servicerequest"
+              sequence="3"
+              action="ticket_servicerequest_action_report"/>
+</odoo>

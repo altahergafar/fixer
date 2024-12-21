@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- servicerequest Access Groups Category -->
+    <record id="module_category_servicerequest" model="ir.module.category">
+        <field name="name">servicerequest</field>
+        <field name="description">servicerequest Access Groups</field>
+        <field name="sequence">20</field>
+    </record>
+    <!-- servicerequest User Group -->
+    <record id="servicerequest_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="odoo_website_service_request.module_category_servicerequest"/>
+    </record>
+    <!-- servicerequest Team Leader Group -->
+    <record id="servicerequest_team_leader" model="res.groups">
+        <field name="name">Team Leader</field>
+        <field name="category_id" ref="odoo_website_service_request.module_category_servicerequest"/>
+        <field name="implied_ids" eval="[(4, ref('odoo_website_service_request.servicerequest_user'))]"/>
+    </record>
+    <!-- servicerequest Manager Group -->
+    <record id="servicerequest_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="odoo_website_service_request.module_category_servicerequest"/>
+        <field name="implied_ids" eval="[(4, ref('odoo_website_service_request.servicerequest_team_leader'))]"/>
+    </record>
+    <!-- Group Show Category -->
+    <record id="group_show_category" model="res.groups">
+        <field name="name">group_show_category</field>
+    </record>
+    <!-- Group Show Subcategory -->
+    <record id="group_show_subcategory" model="res.groups">
+        <field name="name">group_show_subcategory</field>
+    </record>
+    <!-- Default User with servicerequest Manager Group -->
+    <record id="base.default_user" model="res.users">
+        <field name="groups_id" eval="[(4,ref('odoo_website_service_request.servicerequest_manager'))]"/>
+    </record>
+</odoo>
