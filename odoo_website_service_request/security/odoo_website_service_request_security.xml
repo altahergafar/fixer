@@ -47,7 +47,7 @@
     <!-- <record id="help_desk_stage_rule_leader"
             model="ir.rule">
         <field name="name">Record Rule stages leader</field>
-        <field ref="model_ticket_stage" name="model_id"/>
+        <field ref="model_request_stage" name="model_id"/>
         <field name="groups"
                eval="[(4, ref('odoo_website_service_request.servicerequest_team_leader'))]"/>
         <field name="domain_force">[('group_ids.users', 'in', user.id)]</field>
@@ -60,7 +60,7 @@
     <!-- <record id="help_desk_stage_rule_manager"
             model="ir.rule">
         <field name="name">Record Rule stages manager</field>
-        <field ref="model_ticket_stage" name="model_id"/>
+        <field ref="model_request_stage" name="model_id"/>
         <field name="groups"
                eval="[(4, ref('odoo_website_service_request.servicerequest_manager'))]"/>
         <field name="domain_force">[(1, '=', 1)]</field>
@@ -73,7 +73,7 @@
     <!-- <record id="help_desk_stage_rule_user"
             model="ir.rule">
         <field name="name">Record Rule stages user</field>
-        <field ref="model_ticket_stage" name="model_id"/>
+        <field ref="model_request_stage" name="model_id"/>
         <field name="groups"
                eval="[(4, ref('odoo_website_service_request.servicerequest_user'))]"/>
         <field name="domain_force">[('group_ids.users', 'in', user.id)]</field>

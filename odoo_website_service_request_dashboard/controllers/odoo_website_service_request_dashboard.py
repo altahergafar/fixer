@@ -23,19 +23,19 @@ from odoo import http
 from odoo.http import request
 
 
-class HelpDeskTickets(http.Controller):
-    @http.route(['/help/tickets'], type="json", auth="user")
+class HelpDeskrequests(http.Controller):
+    @http.route(['/help/requests'], type="json", auth="user")
     def elearning_snippet(self):
-        tickets = []
-        help_tickets = request.env['service.request'].sudo().search(
+        requests = []
+        help_requests = request.env['service.request'].sudo().search(
             [('stage_id.name', '=', 'Inbox')])
-        for i in help_tickets:
-            tickets.append(
+        for i in help_requests:
+            requests.append(
                 {'name': i.name, 'subject': i.subject, 'id': i.id})
         values = {
-            'h_tickets': tickets
+            'h_requests': requests
         }
         response = http.Response(
-            template='odoo_website_service_request_dashboard.dashboard_tickets',
+            template='odoo_website_service_request_dashboard.dashboard_requests',
             qcontext=values)
         return response.render()

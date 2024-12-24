@@ -4,9 +4,9 @@
         <field name="name">Service Request</field>
         <field name="tag">service_request_dashboard</field>
     </record>
-    <menuitem id="odoo_website_service_request.menu_service_request" name="Service Request"
+    <!-- <menuitem id="odoo_website_service_request.menu_service_request" name="Service Request"
               action="action_website_service_request_dashboard"
-              sequence="5"/>
+              sequence="5"/> -->
     <menuitem name="Dashboard" id="menu_service_request_dashboard_new"
               parent="odoo_website_service_request.menu_servicerequest" sequence="0"
               action="action_website_service_request_dashboard"/>

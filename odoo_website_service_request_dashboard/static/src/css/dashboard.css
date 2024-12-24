@@ -146,27 +146,27 @@
 }
 
 
-.inbox_tickets .stat-widget-one .stat-text {
+.inbox_requests .stat-widget-one .stat-text {
     color: #706F8E;
 }
 
-.inbox_tickets .stat-icon {
+.inbox_requests .stat-icon {
     background: #706F8E !important;
 }
 
-.inprogress_tickets .stat-widget-one .stat-text {
+.inprogress_requests .stat-widget-one .stat-text {
     color: #9AA8A8;
 }
 
-.inprogress_tickets .stat-icon {
+.inprogress_requests .stat-icon {
     background: #9AA8A8 !important;
 }
 
-.done_tickets .stat-icon {
+.done_requests .stat-icon {
     background: #847A9F !important;
 }
 
-.done_tickets .stat-widget-one .stat-text {
+.done_requests .stat-widget-one .stat-text {
     color: #847A9F;
 }
 
@@ -190,12 +190,12 @@
     margin: 0 0 0 4px;
 }
 
-.ticket_box {
+.request_box {
     height: 32rem;
     overflow-y: auto;
 }
 
-.ticket_box_head {
+.request_box_head {
     text-align: center;
     padding: 12px 0;
     color: rgb(73 80 87 / 76%);
@@ -205,15 +205,15 @@
     margin-bottom: 9px;
 }
 
-.tickets_head {
+.requests_head {
     margin-left: 10px;
 }
 
-.pending_tickets {
+.pending_requests {
     padding-left: 0 ! important;
 }
 
-.tickets_list {
+.requests_list {
     font-weight: 500;
     font-size: 14px;
     margin: 10px;

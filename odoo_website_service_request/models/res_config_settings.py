@@ -37,29 +37,29 @@ class ResConfigSettings(models.TransientModel):
     show_category = fields.Boolean(string="Category",
                                    config_parameter='odoo_website_service_request.show_category',
                                    help='Enable this option to display the '
-                                        'category field in the servicerequest tickets. '
+                                        'category field in the servicerequest requests. '
                                         'This can be useful for organizing and '
-                                        'filtering tickets based on their category.',
+                                        'filtering requests based on their category.',
                                    implied_group='odoo_website_service_request.group_show_category')
     product_website = fields.Boolean(string="Product On Website",
                                      config_parameter='odoo_website_service_request.product_website',
                                      help='Product on website')
-    auto_close_ticket = fields.Boolean(string="Auto Close Ticket",
-                                       config_parameter='odoo_website_service_request.auto_close_ticket',
-                                       help='Auto Close ticket')
+    auto_close_request = fields.Boolean(string="Auto Close request",
+                                       config_parameter='odoo_website_service_request.auto_close_request',
+                                       help='Auto Close request')
     no_of_days = fields.Integer(string="No Of Days",
                                 config_parameter='odoo_website_service_request.no_of_days',
                                 help='No of Days')
     closed_stage_id = fields.Many2one(
         'service.request.stage', string='Closing stage',
-        help='Closing Stage of the ticket.',
+        help='Closing Stage of the request.',
         config_parameter='odoo_website_service_request.closed_stage_id')
 
     reply_template_id = fields.Many2one('mail.template',
                                         domain="[('model', '=', 'service.request')]",
                                         config_parameter='odoo_website_service_request.reply_template_id',
                                         help='Reply Template of the servicerequest'
-                                             ' ticket.')
+                                             ' request.')
     servicerequest_menu_show = fields.Boolean('servicerequest Menu',
                                         config_parameter=
                                         'odoo_website_service_request.servicerequest_menu_show',

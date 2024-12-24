@@ -9,7 +9,7 @@
         <field name="arch" type="xml">
             <xpath expr="//form" position="inside">
                 <div class="app_settings_block" data-string="servicerequest"
-                     string="servicerequest" data-key="servicerequest_ticket">
+                     string="servicerequest" data-key="servicerequest_request">
                     <h2>servicerequest</h2>
                     <div class="row mt16 o_settings_container">
                         <div class="col-lg-6 o_setting_box">
@@ -18,12 +18,12 @@
                             </div>
                             <div class="o_setting_right_pane">
                                 <label for="show_create_task"/>
-                                <div class="text-muted">Create tasks from tickets</div>
+                                <div class="text-muted">Create tasks from requests</div>
                             </div>
                         </div>
                     </div>
                     <div groups="odoo_website_service_request.servicerequest_manager">
-                        <h2>Ticket Settings</h2>
+                        <h2>request Settings</h2>
                         <div class="row mt16 o_settings_container">
                             <div class="col-lg-6 o_setting_box">
                                 <div class="o_setting_left_pane">
@@ -31,7 +31,7 @@
                                 </div>
                                 <div class="o_setting_right_pane">
                                     <label for="show_category" string="Category"/>
-                                    <div class="text-muted">Categorize the Tickets</div>
+                                    <div class="text-muted">Categorize the requests</div>
                                 </div>
                             </div>
                         </div>
@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="o_setting_right_pane">
                                     <label for="servicerequest_menu_show"/>
-                                    <div class="text-muted">Create Ticket From Website</div>
+                                    <div class="text-muted">Create request From Website</div>
                                 </div>
                             </div>
                             <div class="col-lg-6 o_setting_box">
@@ -56,16 +56,16 @@
                             </div>
                             <div class="col-12 col-lg-6 o_setting_box">
                                 <div class="o_setting_left_pane">
-                                    <field name="auto_close_ticket"/>
+                                    <field name="auto_close_request"/>
                                 </div>
                                 <div class="o_setting_right_pane">
-                                    <label for="auto_close_ticket"/>
-                                    <div class="text-muted">Automatically Close Ticket</div>
+                                    <label for="auto_close_request"/>
+                                    <div class="text-muted">Automatically Close request</div>
                                     <br/>
                                     <label for="no_of_days"
-                                           invisible="auto_close_ticket== False"/>
+                                           invisible="auto_close_request== False"/>
                                     <field name="no_of_days"
-                                           invisible="auto_close_ticket == False"/>
+                                           invisible="auto_close_request == False"/>
                                 </div>
                             </div>
                         </div>
@@ -106,11 +106,11 @@
     <!--    Action for settings model.-->
     <record id="action_servicerequest_general_settings"
             model="ir.actions.act_window">
-        <field name="name">servicerequest Ticket</field>
+        <field name="name">servicerequest request</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">res.config.settings</field>
         <field name="view_mode">form</field>
         <field name="target">inline</field>
-        <field name="context">{'module': 'servicerequest_ticket'}</field>
+        <field name="context">{'module': 'servicerequest_request'}</field>
     </record>
 </odoo>

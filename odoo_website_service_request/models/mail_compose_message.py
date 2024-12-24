@@ -36,7 +36,7 @@ class MailComposeMessage(models.TransientModel):
             except Exception as e:
                 raise ValueError(
                     "Error converting res_ids to list: {}".format(e))
-            ticket_ids = self.env['service.request'].browse(res_ids_list)
-            ticket_ids.replied_date = fields.Date.today()
+            request_ids = self.env['service.request'].browse(res_ids_list)
+            request_ids.replied_date = fields.Date.today()
         return super(MailComposeMessage, self)._action_send_mail(
             auto_commit=auto_commit)

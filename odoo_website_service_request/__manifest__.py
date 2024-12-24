@@ -23,13 +23,13 @@
     'name': "Website Service Request Management",
     'version': '17.0.1.0.1',
     'category': 'Website',
-    'summary': """The website allows for the creation of tickets, which can 
+    'summary': """The website allows for the creation of requests, which can 
     then be controlled from the backend. Furthermore, a bill that includes 
-    the service charge can be generated for the ticket for odoo community 
+    the service charge can be generated for the request for odoo community 
     Edition version 17.""",
-    'description': """A ticket can be created from the website and subsequently
+    'description': """A request can be created from the website and subsequently
      managed from the backend. Additionally, a bill can be generated for the
-     ticket, which includes the service cost.""",
+     request, which includes the service cost.""",
     'author': "Cybrosys Techno Solutions",
     'company': 'Cybrosys Techno Solutions',
     'maintainer': 'Cybrosys Techno Solutions',
@@ -45,25 +45,25 @@
         'data/ir_cron_data.xml',
         'data/ir_sequence_data.xml',
         'data/mail_template_data.xml',
-        'data/ticket_stage_data.xml',
+        'data/request_stage_data.xml',
         'views/servicerequest_category_views.xml',
         'views/servicerequest_tag_views.xml',
         'views/servicerequest_type_views.xml',
-        'views/merge_ticket_views.xml',
+        'views/merge_request_views.xml',
         'views/odoo_website_service_request_portal_templates.xml',
         'views/portal_templates.xml',
         'views/rating_form.xml',
-        'report/servicerequest_ticket_report_template.xml',
+        'report/servicerequest_request_report_template.xml',
         'views/res_config_settings_views.xml',
         'views/team_servicerequest_views.xml',
-        'views/ticket_servicerequest_views.xml',
-        'views/ticket_stage_views.xml',
+        'views/request_servicerequest_views.xml',
+        'views/request_stage_views.xml',
         'views/website_form.xml',
         'views/servicerequest_views.xml',
     ],
     'assets': {
         'web.assets_frontend': [
-            'odoo_website_service_request/static/src/js/ticket_details.js',
+            'odoo_website_service_request/static/src/js/request_details.js',
             '/odoo_website_service_request/static/src/js/portal_search.js',
             '/odoo_website_service_request/static/src/js/multiple_product_choose.js',
         ]

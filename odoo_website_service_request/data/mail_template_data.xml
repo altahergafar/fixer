@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data noupdate="1">
-        <!--    Mail Template for notifying customers about the creation of a ticket.-->
-        <record id="ticket_created" model="mail.template">
-            <field name="name">Create Ticket</field>
+        <!--    Mail Template for notifying customers about the creation of a request.-->
+        <record id="request_created" model="mail.template">
+            <field name="name">Create request</field>
             <field name="model_id" ref="odoo_website_service_request.model_service_request"/>
             <field name="auto_delete" eval="True"/>
             <field name="email_to">{{object.customer_id.email}}</field>
-            <field name="subject">Ticket Created</field>
+            <field name="subject">request Created</field>
             <field name="body_html" type="html">
                 <p>
                     Dear
                     <t t-out="object.customer_id.name"/>
                     <br/>
-                    Your Ticket
+                    Your request
                     <t t-out="object.name"/>
                     is Created and Assigned. Kindly Wait while we're resolving your Query
                     <br/>
@@ -22,19 +22,19 @@
                 </p>
             </field>
         </record>
-        <!--  Mail Template for notifying customers about the closure of a ticket and prompting them for feedback.-->
+        <!--  Mail Template for notifying customers about the closure of a request and prompting them for feedback.-->
         <record id="servicerequest_rating" model="mail.template">
-            <field name="name">Close Ticket And Feedback</field>
+            <field name="name">Close request And Feedback</field>
             <field name="model_id"
                    ref="odoo_website_service_request.model_service_request"/>
             <field name="auto_delete" eval="True"/>
             <field name="email_to">{{object.customer_id.email}}</field>
-            <field name="subject">Ticket Closed</field>
+            <field name="subject">request Closed</field>
             <field name="body_html" type="html">
                 <p>
                     Dear
                     <t t-out="object.customer_id.name"/>
-                    Your Ticket
+                    Your request
                     <t t-out="object.name"/>
                     Is Closed
                     <br/>
@@ -52,20 +52,20 @@
 
             </field>
         </record>
-        <!--        Mail Template for notifying customers about the reopening of a ticket.-->
-        <record id="ticket_reopened" model="mail.template">
-            <field name="name">Reopened Ticket</field>
+        <!--        Mail Template for notifying customers about the reopening of a request.-->
+        <record id="request_reopened" model="mail.template">
+            <field name="name">Reopened request</field>
             <field name="model_id"
                    ref="odoo_website_service_request.model_service_request"/>
             <field name="auto_delete" eval="True"/>
             <field name="email_to">{{object.customer_id.email}}</field>
-            <field name="subject">Ticket Reopened</field>
+            <field name="subject">request Reopened</field>
             <field name="body_html" type="html">
                 <p>
                     Dear
                     <t t-out="object.customer_id.name"/>
                     <br/>
-                    Your Ticket
+                    Your request
                     <t t-out="object.name"/>
                     is Reopened
                     <br/>
@@ -74,21 +74,21 @@
                 </p>
             </field>
         </record>
-        <!-- Mail Template for notifying customers about the approval and resolution of a ticket.-->
-        <record id="ticket_approved" model="mail.template">
-            <field name="name">Approve Ticket</field>
+        <!-- Mail Template for notifying customers about the approval and resolution of a request.-->
+        <record id="request_approved" model="mail.template">
+            <field name="name">Approve request</field>
             <field name="model_id"
                    ref="odoo_website_service_request.model_service_request"/>
             <field name="auto_delete" eval="True"/>
             <field name="email_to">{{object.customer_id.email}}</field>
-            <field name="subject">Ticket Solved</field>
+            <field name="subject">request Solved</field>
             <field name="body_html" type="html">
                 <p>
                     Dear
                     <t t-out="object.customer_id.name"/>
                     <br/>
                     i think your Problem is Solved.
-                    Your Ticket
+                    Your request
                     <t t-out="object.name"/>
                     is Done
                     <br/>
@@ -98,20 +98,20 @@
             </field>
         </record>
         <!--    An email template for notifying customers about the cancellation-->
-        <!--    of a ticket.-->
-        <record id="ticket_canceled" model="mail.template">
-            <field name="name">Cancel Ticket</field>
+        <!--    of a request.-->
+        <record id="request_canceled" model="mail.template">
+            <field name="name">Cancel request</field>
             <field name="model_id"
                    ref="odoo_website_service_request.model_service_request"/>
             <field name="auto_delete" eval="True"/>
             <field name="email_to">{{object.customer_id.email}}</field>
-            <field name="subject">Ticket Canceled</field>
+            <field name="subject">request Canceled</field>
             <field name="body_html" type="html">
                 <p>
                     Dear
                     <t t-out="object.customer_id.name"/>
                     <br/>
-                    Your Ticket
+                    Your request
                     <t t-out="object.name"/>
                     is Canceled Due to Some Reasons
                     <br/>
@@ -120,12 +120,12 @@
                 </p>
             </field>
         </record>
-        <!--            This XML record defines an email template for notifying the team head about the assignment of a ticket.-->
-        <!--    The template is associated with the "mail.template" model and is designed to be triggered when a ticket-->
+        <!--            This XML record defines an email template for notifying the team head about the assignment of a request.-->
+        <!--    The template is associated with the "mail.template" model and is designed to be triggered when a request-->
         <!--    is assigned to a specific team.-->
         <record id="odoo_website_service_request_assign"
                 model="mail.template">
-            <field name="name">Ticket Assign</field>
+            <field name="name">request Assign</field>
             <field name="email_from"/>
             <field name="email_to"/>
             <field name="subject"/>
@@ -136,7 +136,7 @@
                     <p>Dear,
                         <t t-esc="object.team_head_id.name"/>
                     </p>
-                    <p>Your team has been given the ticket [<t t-esc="object.name"/>] kindly complete your work
+                    <p>Your team has been given the request [<t t-esc="object.name"/>] kindly complete your work
                         carefully.
                     </p>
                     <br/>
@@ -155,10 +155,10 @@
                 </div>
             </field>
         </record>
-        <!--        An email template for notifying an assigned user about the assignment of a ticket.-->
+        <!--        An email template for notifying an assigned user about the assignment of a request.-->
         <record id="odoo_website_service_request_assign_user"
                 model="mail.template">
-            <field name="name">Ticket Assign to User</field>
+            <field name="name">request Assign to User</field>
             <field name="email_from"/>
             <field name="email_to"/>
             <field name="subject"/>
@@ -169,7 +169,7 @@
                     <p>Dear,
                         <t t-esc="object.assigned_user_id.name"/>
                     </p>
-                    <p>Ticket [<t t-esc="object.name"/>] Assign to you , kindly complete your work carefully.
+                    <p>request [<t t-esc="object.name"/>] Assign to you , kindly complete your work carefully.
                     </p>
                     <br/>
                     <h2>Details</h2>
@@ -187,7 +187,7 @@
                 </div>
             </field>
         </record>
-        <!--            This record defines an email template for notifying a customer about the assignment of a servicerequest ticket to a user.-->
+        <!--            This record defines an email template for notifying a customer about the assignment of a servicerequest request to a user.-->
         <record id="odoo_website_service_request_to_customer"
                 model="mail.template">
             <field name="name">Mail To Customer Assign to User</field>
@@ -201,7 +201,7 @@
                     <p>Dear,
                         <t t-esc="object.customer_id.name"/>
                     </p>
-                    <p>Ticket [<t t-esc="object.name"/>] successfully assigned to "<t
+                    <p>request [<t t-esc="object.name"/>] successfully assigned to "<t
                             t-esc="object.assigned_user_id.name"/>".
                     </p>
                     <br/>

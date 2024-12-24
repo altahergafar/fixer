@@ -24,11 +24,11 @@ from . import servicerequest_category
 from . import servicerequest_tag
 from . import servicerequest_type
 from . import mail_compose_message
-from . import merge_ticket
+from . import merge_request
 from . import project_task
 from . import res_config_settings
-from . import support_ticket
+from . import support_request
 from . import team_servicerequest
-from . import ticket_servicerequest
-from . import ticket_stage
+from . import request_servicerequest
+from . import request_stage
 from . import website_menu

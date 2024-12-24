@@ -2,28 +2,28 @@
 import { jsonrpc } from "@web/core/network/rpc_service";
 import publicWidget from "@web/legacy/js/public/public_widget";
 publicWidget.registry.TT = publicWidget.Widget.extend({
-    selector: '#ticket',
+    selector: '#request',
     events: {
          'change #group_select': '_onGroupSelectChange',
-        'click #search_ticket': '_onSubmit',
+        'click #search_request': '_onSubmit',
     },
-    //        GroupBy filtering the portal tickets
+    //        GroupBy filtering the portal requests
         _onGroupSelectChange: function (ev) {
             var self = this;
             var searchValue = this.$el.find('#group_select').val();
-            jsonrpc('/ticketgroupby', {
+            jsonrpc('/requestgroupby', {
                 'search_value': searchValue,
             }).then(function (result) {
-                  $('.search_ticket').html(result);
+                  $('.search_request').html(result);
             });
         },
-//        Searching the portal tickets
+//        Searching the portal requests
     _onSubmit(ev) {
        var search_value = this.$el.find('#search_box').val();
-       jsonrpc('/ticketsearch', {
+       jsonrpc('/requestsearch', {
                 'search_value': search_value,
             }).then(function(result) {
-                $('.search_ticket').html(result);
+                $('.search_request').html(result);
             });
     }
 })

@@ -4,17 +4,17 @@
     <menuitem id="menu_servicerequest" name="Service Request"
               web_icon="odoo_website_service_request,static/description/icon.png"
               sequence="1"/>
-    <!-- Tickets Submenu -->
+    <!-- requests Submenu -->
     <menuitem id="servicerequest_management" parent="menu_servicerequest" name="Service Request"
-              action="ticket_servicerequest_action" sequence="2"/>
-    <!-- My Tickets -->
-    <menuitem id="servicerequest_tickets_my" parent="servicerequest_management"
+              action="request_servicerequest_action" sequence="2"/>
+    <!-- My requests -->
+    <menuitem id="servicerequest_requests_my" parent="servicerequest_management"
               name="My Request"
-              action="ticket_servicerequest_action_my" sequence="1"/>
-    <!-- All Tickets -->
-    <menuitem id="servicerequest_tickets" parent="servicerequest_management"
+              action="request_servicerequest_action_my" sequence="1"/>
+    <!-- All requests -->
+    <menuitem id="servicerequest_requests" parent="servicerequest_management"
               name="All Service Request"
-              action="ticket_servicerequest_action" sequence="2"
+              action="request_servicerequest_action" sequence="2"
               groups="odoo_website_service_request.servicerequest_manager"/>
     <!-- servicerequest Team Menu -->
     <menuitem id="menu_servicerequest_team" name="Service Request Team"
@@ -55,5 +55,5 @@
     <!-- servicerequest Report -->
     <menuitem id="report_servicerequest" name="Report" parent="menu_servicerequest"
               sequence="3"
-              action="ticket_servicerequest_action_report"/>
+              action="request_servicerequest_action_report"/>
 </odoo>

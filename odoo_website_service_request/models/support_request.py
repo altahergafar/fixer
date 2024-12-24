@@ -22,11 +22,19 @@
 from odoo import fields, models
 
 
-class ProjectTask(models.Model):
-    """Inheriting the project task"""
-    _inherit = 'project.task'
+class Supportservicerequest(models.Model):
+    """Creating onetoMany model"""
+    _name = 'support.servicerequest'
+    _description = 'Support Service Request'
 
-    request_id = fields.Many2one('service.request', string='request',
-                                help='ID of the request .')
-    request_billed = fields.Boolean('Billed', default=False,
-                                   help='Billed requests')
+    subject = fields.Char(string='Subject', help='Subject of the merged '
+                                                 'requests.')
+    display_name = fields.Char(string='Display Name',
+                               help='Display name of the merged requests.')
+    description = fields.Char(string='Description',
+                              help='Description of the requests.')
+    support_request_id = fields.Many2one('merge.request.request',
+                                        string='Support requests',
+                                        help='Support requests')
+    merged_request = fields.Integer(string='Merged request ID',
+                                   help='Storing merged request id')

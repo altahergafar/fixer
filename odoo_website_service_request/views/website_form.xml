@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <!--    servicerequest ticket menu.-->
+    <!--    servicerequest request menu.-->
     <record id="website_servicerequest" model="website.menu">
         <field name="name">Service Request</field>
-        <field name="url" eval="'/servicerequest_ticket'"/>
+        <field name="url" eval="'/servicerequest_request'"/>
         <field name="parent_id" ref="website.main_menu"/>
         <field name="sequence" type="int">55</field>
     </record>
-    <!--For displaying a "Thank You" message after a servicerequest ticket is submitted. -->
+    <!--For displaying a "Thank You" message after a servicerequest request is submitted. -->
     <record id="odoo_website_service_request.servicerequest_thanks" model="website.page">
         <field name="name">Thanks (servicerequest)</field>
         <field name="type">qweb</field>
@@ -35,10 +35,10 @@
                                         </div>
                                         <h5 class="text-center">
                                             <span class="fa fa-check-circle"/>
-                                            <span>Your Ticket
-                                                <a t-attf-href="/my/tickets/#{request.session.ticket_id}">
+                                            <span>Your request
+                                                <a t-attf-href="/my/requests/#{request.session.request_id}">
                                                     <strong>
-                                                        <t t-esc="request.session.ticket_number"/>
+                                                        <t t-esc="request.session.request_number"/>
                                                     </strong>
                                                 </a>
                                                 has been registered
@@ -80,8 +80,8 @@
             </t>
         </field>
     </record>
-<!--    Defines a servicerequest ticket form for the Odoo website module.-->
-    <template id="ticket_form" name="servicerequest Ticket">
+<!--    Defines a servicerequest request form for the Odoo website module.-->
+    <template id="request_form" name="servicerequest request">
         <t t-call="website.layout">
             <t t-set="logged_partner"
                t-value="request.env['website.visitor']._get_visitor_from_request().partner_id"/>
@@ -104,7 +104,7 @@
                           style="background-image: url('/web/image/website.s_banner_default_image'); background-position: 50% 0;"/>
                     <div class="o_we_bg_filter bg-black-50"/>
                     <div class="container">
-                        <h1>Support Tickets</h1>
+                        <h1>Service Request</h1>
                     </div>
                 </section>
                 <section class="s_text_block pt40 pb40 o_colored_level "
@@ -124,7 +124,7 @@
                                 <section class="s_website_form" data-vcss="001"
                                          data-snippet="s_website_form">
                                     <div class="container">
-                                        <form id="Ticket_form"
+                                        <form id="request_form"
                                               action="/website/form/"
                                               method="post"
                                               enctype="multipart/form-data"
@@ -235,14 +235,14 @@
                                                                style="width: 200px"
                                                                for="contact53">
                                                             <span class="s_website_form_label_content">
-                                                                Ticket type
+                                                                request type
                                                             </span>
                                                             <span class="s_website_form_mark">
                                                                 *
                                                             </span>
                                                         </label>
                                                         <div class="col-sm">
-                                                            <select name="ticket_type_id" id="contact53"
+                                                            <select name="request_type_id" id="contact53"
                                                                     t-attf-class="form-control s_website_form_input"
                                                                     required="1">
                                                                 <t t-foreach="types or []"
@@ -339,7 +339,7 @@
                                                     </div>
                                                     <br/>
                                                 </div>
-                                                <div id="ticket_disc"
+                                                <div id="request_disc"
                                                      class="form-group col-12 s_website_form_field s_website_form_custom s_website_form_required"
                                                      data-type="text"
                                                      data-name="Field">
@@ -381,7 +381,7 @@
                                                         </label>
                                                         <div class="col-sm form-control">
                                                             <input type="file"
-                                                                   name="ticket_attachment"
+                                                                   name="request_attachment"
                                                                    multiple="true"/>
                                                         </div>
                                                     </div>

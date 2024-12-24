@@ -2,7 +2,7 @@
     :target: https://www.gnu.org/licenses/lgpl-3.0-standalone.html
     :alt: License: LGPL-3
 
-Website servicerequest Support Ticket Management
+Website servicerequest Support request Management
 ==========================================
 - servicerequest Support for Odoo 17 community edition
 

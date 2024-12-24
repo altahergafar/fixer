@@ -82,7 +82,7 @@ class WebsiteFormInherit(WebsiteForm):
                     'product_ids': product_list,
                     'stage_id': lowest_stage_id.id,
                     'customer_id': customer.id,
-                    'ticket_type_id': kwargs.get('ticket_type_id'),
+                    'request_type_id': kwargs.get('request_type_id'),
                     'category_id': kwargs.get('category'),
                 }
             else:
@@ -95,12 +95,12 @@ class WebsiteFormInherit(WebsiteForm):
                     'priority': kwargs.get('priority'),
                     'stage_id': lowest_stage_id.id,
                     'customer_id': customer.id,
-                    'ticket_type_id': kwargs.get('ticket_type_id'),
+                    'request_type_id': kwargs.get('request_type_id'),
                     'category_id': kwargs.get('category'),
                 }
-            ticket_id = request.env['service.request'].sudo().create(rec_val)
-            request.session['ticket_number'] = ticket_id.name
-            request.session['ticket_id'] = ticket_id.id
+            request_id = request.env['service.request'].sudo().create(rec_val)
+            request.session['request_number'] = request_id.name
+            request.session['request_id'] = request_id.id
             model_record = request.env['ir.model'].sudo().search(
                 [('model', '=', model_name)])
             attachments = []
@@ -122,8 +122,8 @@ class WebsiteFormInherit(WebsiteForm):
                 })
             request.session['form_builder_model_model'] = model_record.model
             request.session['form_builder_model'] = model_record.name
-            request.session['form_builder_id'] = ticket_id.id
-            return json.dumps({'id': ticket_id.id})
+            request.session['form_builder_id'] = request_id.id
+            return json.dumps({'id': request_id.id})
         else:
             model_record = request.env['ir.model'].sudo().search(
                 [('model', '=', model_name)])

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <!--    This XML file defines templates for a rating form and a thank you message in an Odoo application.-->
-    <template id="rating_form" name="Ticket Rating">
+    <template id="rating_form_request" name="request Rating">
         <t t-call="website.layout">
             <center>
                 <h4>
@@ -10,7 +10,7 @@
                 </h4>
                 <form style="display: flex;
                       justify-content: center;"
-                      t-attf-action="/rating/{{ticket}}/submit"
+                      t-attf-action="/rating/{{request}}/submit"
                       method="post">
                     <div class="">
                         <div class="o_portal_chatter_header">

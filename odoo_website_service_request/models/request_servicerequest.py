@@ -43,37 +43,37 @@ RATING = [
 ]
 
 
-class TicketHelpDesk(models.Model):
-    """Help_ticket model"""
-    _name = 'ticket.helpdesk'
-    _description = 'Helpdesk Ticket'
+class ServiceRequest(models.Model):
+    """Help_request model"""
+    _name = 'service.request'
+    _description = 'servicerequest request'
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
     def _default_show_create_task(self):
         """Task creation"""
         return self.env['ir.config_parameter'].sudo().get_param(
-            'odoo_website_helpdesk.show_create_task')
+            'odoo_website_service_request.show_create_task')
 
     def _default_show_category(self):
         """Show category default"""
         return self.env['ir.config_parameter'].sudo().get_param(
-            'odoo_website_helpdesk.show_category')
+            'odoo_website_service_request.show_category')
 
     name = fields.Char('Name', default=lambda self: self.env['ir.sequence'].
-                       next_by_code('ticket.helpdesk') or _('New'),
-                       help='Ticket Name')
+                       next_by_code('service.request') or _('New'),
+                       help='request Name')
     customer_id = fields.Many2one('res.partner',
                                   string='Customer Name',
                                   help='Customer Name')
     customer_name = fields.Char('Customer Name', help='Customer Name')
     subject = fields.Text('Subject', required=True,
-                          help='Subject of the Ticket')
+                          help='Subject of the request')
     description = fields.Text('Description', required=True,
                               help='Description')
     email = fields.Char('Email', help='Email')
     phone = fields.Char('Phone', help='Contact Number')
-    team_id = fields.Many2one('team.helpdesk', string='Helpdesk Team',
-                              help='Helpdesk Team Name')
+    team_id = fields.Many2one('team.servicerequest', string='servicerequest Team',
+                              help='servicerequest Team Name')
     product_ids = fields.Many2many('product.template',
                                    string='Product',
                                    help='Product Name')
@@ -84,10 +84,10 @@ class TicketHelpDesk(models.Model):
                                  store=True,
                                  help='Project Name')
     priority = fields.Selection(PRIORITIES, default='1', help='Priority of the'
-                                                              ' Ticket')
-    stage_id = fields.Many2one('ticket.stage', string='Stage',
+                                                              ' request')
+    stage_id = fields.Many2one('service.request.stage', string='Stage',
                                default=lambda self: self.env[
-                                   'ticket.stage'].search(
+                                   'service.request.stage'].search(
                                    [('name', '=', 'Draft')], limit=1).id,
                                tracking=True,
                                group_expand='_read_group_stage_ids',
@@ -106,8 +106,8 @@ class TicketHelpDesk(models.Model):
     create_date = fields.Datetime('Creation Date', help='Created date')
     start_date = fields.Datetime('Start Date', help='Start Date')
     end_date = fields.Datetime('End Date', help='End Date')
-    public_ticket = fields.Boolean(string="Public Ticket",
-                                   help='Public Ticket')
+    public_request = fields.Boolean(string="Public request",
+                                   help='Public request')
     invoice_ids = fields.Many2many('account.move',
                                    string='Invoices',
                                    help='Invoicing id'
@@ -119,28 +119,28 @@ class TicketHelpDesk(models.Model):
     replied_date = fields.Datetime('Replied date', help='Replied Date')
     last_update_date = fields.Datetime('Last Update Date',
                                        help='Last Update Date')
-    ticket_type_id = fields.Many2one('helpdesk.type',
-                                     string='Ticket Type', help='Ticket Type')
+    request_type_id = fields.Many2one('servicerequest.type',
+                                     string='request Type', help='request Type')
     team_head_id = fields.Many2one('res.users', string='Team Leader',
                                    compute='_compute_team_head_id',
                                    help='Team Leader Name')
     assigned_user_id = fields.Many2one('res.users', string='Assigned User',
                                        domain=lambda self: [('groups_id', 'in',
                                                              self.env.ref(
-                                                                 'odoo_website_helpdesk.helpdesk_user').id)],
+                                                                 'odoo_website_service_request.servicerequest_user').id)],
                                        help='Assigned User Name')
-    category_id = fields.Many2one('helpdesk.category', string='Category',
+    category_id = fields.Many2one('servicerequest.category', string='Category',
                                   help='Category')
-    tags_ids = fields.Many2many('helpdesk.tag', help='Tags', string='Tags')
+    tags_ids = fields.Many2many('servicerequest.tag', help='Tags', string='Tags')
     assign_user = fields.Boolean(default=False, help='Assign User',
                                  string='Assign User')
     attachment_ids = fields.One2many('ir.attachment', 'res_id',
                                      help='Attachment Line',
                                      string='Attachments')
-    merge_ticket_invisible = fields.Boolean(string='Merge Ticket',
-                                            help='Merge Ticket Invisible or '
+    merge_request_invisible = fields.Boolean(string='Merge request',
+                                            help='Merge request Invisible or '
                                                  'Not', default=False)
-    merge_count = fields.Integer(string='Merge Count', help='Merged Tickets '
+    merge_count = fields.Integer(string='Merge Count', help='Merged requests '
                                                             'Count')
     active = fields.Boolean(default=True, help='Active', string='Active')
 
@@ -158,7 +158,7 @@ class TicketHelpDesk(models.Model):
                                    help='Show category or not',
                                    compute='_compute_show_category')
     customer_rating = fields.Selection(RATING, default='0', readonly=True)
-    review = fields.Char('Review', readonly=True, help='Ticket review')
+    review = fields.Char('Review', readonly=True, help='request review')
     kanban_state = fields.Selection([
         ('normal', 'Ready'),
         ('done', 'In Progress'),
@@ -179,7 +179,7 @@ class TicketHelpDesk(models.Model):
     def _onchange_stage_id(self):
         """Sending mail to the user function"""
         rec_id = self._origin.id
-        data = self.env['ticket.helpdesk'].search([('id', '=', rec_id)])
+        data = self.env['service.request'].search([('id', '=', rec_id)])
         data.last_update_date = fields.Datetime.now()
         if self.stage_id.starting_stage:
             data.start_date = fields.Datetime.now()
@@ -194,14 +194,14 @@ class TicketHelpDesk(models.Model):
         if self.team_id:
             self.team_head_id = self.team_id.team_lead_id.id
             mail_template = self.env.ref(
-                'odoo_website_helpdesk.odoo_website_helpdesk_assign')
+                'odoo_website_service_request.odoo_website_service_request_assign')
             mail_template.sudo().write({
                 'email_to': self.team_head_id.email,
                 'subject': self.name
             })
             mail_template.sudo().send_mail(self.id, force_send=True)
         else:
-            raise ValidationError("Please choose a Helpdesk Team")
+            raise ValidationError("Please choose a servicerequest Team")
 
     def _compute_show_category(self):
         """Compute show category"""
@@ -215,25 +215,25 @@ class TicketHelpDesk(models.Model):
         for record in self:
             record.show_create_task = show_create_task
 
-    def auto_close_ticket(self):
-        """Automatically closing the ticket"""
+    def auto_close_request(self):
+        """Automatically closing the request"""
         auto_close = self.env['ir.config_parameter'].sudo().get_param(
-            'odoo_website_helpdesk.auto_close_ticket')
+            'odoo_website_service_request.auto_close_request')
         if auto_close:
             no_of_days = self.env['ir.config_parameter'].sudo().get_param(
-                'odoo_website_helpdesk.no_of_days')
-            records = self.env['ticket.helpdesk'].search([])
+                'odoo_website_service_request.no_of_days')
+            records = self.env['service.request'].search([])
             for rec in records:
                 days = (fields.Datetime.today() - rec.create_date).days
                 if days >= int(no_of_days):
-                    close_stage_id = self.env['ticket.stage'].search(
+                    close_stage_id = self.env['service.request.stage'].search(
                         [('closing_stage', '=', True)])
                     if close_stage_id:
                         rec.stage_id = close_stage_id
 
     def default_stage_id(self):
         """Method to return the default stage"""
-        return self.env['ticket.stage'].search(
+        return self.env['service.request.stage'].search(
             [('name', '=', 'Draft')], limit=1).id
 
     @api.model
@@ -241,61 +241,61 @@ class TicketHelpDesk(models.Model):
         """
         return the stages to stage_ids
         """
-        stage_ids = self.env['ticket.stage'].search([])
+        stage_ids = self.env['service.request.stage'].search([])
         return stage_ids
 
     @api.model_create_multi
     def create(self, vals_list):
+        customer = self.env.user.partner_id
         """Create function"""
         for vals in vals_list:
             if vals.get('name', _('New')) == _('New'):
                 vals['name'] = self.env['ir.sequence'].next_by_code(
-                    'ticket.helpdesk')
+                    'service.request')
             crm_vals = {
-                'name': f"Follow-up for {self.customer_id.id}",
-                'partner_id': self.customer_id.id,
-                'description': "eghae8yrhey7",
+            'name': f"Follow-up for {self.name}",
+            'partner_id': customer.id,
+            'description': "eghae8yrhey7",
             }
+            invoice_vals = {
+                'move_type': 'out_invoice',  # نوع الفاتورة
+                'partner_id': customer.id,  # العميل
+                'invoice_date': fields.Date.today(),
+                'invoice_line_ids': [(0, 0, {
+                    'name': 'Service Request',
+                    'quantity': 1,
+                    'price_unit':  self.cost,
+                })],
+            }
+            invoice = self.env['account.move'].create(invoice_vals)
+            invoice.action_post()
             crm_record = self.env['crm.lead'].create(crm_vals)
-        return super(TicketHelpDesk, self).create(vals_list)
+        return super(ServiceRequest, self).create(vals_list)
 
     def write(self, vals):
         """Write function"""
-        result = super(TicketHelpDesk, self).write(vals)
+        result = super(ServiceRequest, self).write(vals)
         return result
-    
-    # def create_crm(self):
-    #     crm_vals = {
-    #         'name': f"Follow-up for {self.name}",
-    #         'partner_id': self.customer_id.id,
-    #         'description': "eghae8yrhey7",
-    #     }
-    #     crm_record = self.env['crm.lead'].create(crm_vals)
 
-    #     # تحديث الحالة إذا لزم الأمر
-
-    #     return {
-    #         'crm_id': crm_record.id,
-    #     }
 
     def action_create_invoice(self):
-        """Create Invoice based on the ticket"""
+        """Create Invoice based on the request"""
         tasks = self.env['project.task'].search(
             [('project_id', '=', self.project_id.id),
-             ('ticket_id', '=', self.id)]).filtered(
-            lambda line: not line.ticket_billed)
+             ('request_id', '=', self.id)]).filtered(
+            lambda line: not line.request_billed)
         if not tasks:
             raise UserError('No Tasks to Bill')
         total = sum(x.effective_hours for x in tasks if
                      x.effective_hours > 0 and not x.some_flag)
         invoice_no = self.env['ir.sequence'].next_by_code(
-            'ticket.invoice')
+            'request.invoice')
         self.env['account.move'].create([
             {
                 'name': invoice_no,
                 'move_type': 'out_invoice',
                 'partner_id': self.customer_id.id,
-                'ticket_id': self.id,
+                'request_id': self.id,
                 'date': fields.Date.today(),
                 'invoice_date': fields.Date.today(),
                 'invoice_line_ids': [(0, 0,
@@ -309,7 +309,7 @@ class TicketHelpDesk(models.Model):
                                       })],
             }, ])
         for task in tasks:
-            task.ticket_billed = True
+            task.request_billed = True
         return {
             'effect': {
                 'fadeout': 'medium',
@@ -324,7 +324,7 @@ class TicketHelpDesk(models.Model):
             'name': self.name + '-' + self.subject,
             'project_id': self.project_id.id,
             'company_id': self.env.company.id,
-            'ticket_id': self.id,
+            'request_id': self.id,
         })
         self.write({
             'task_ids': [(4, task_id.id)]
@@ -343,7 +343,7 @@ class TicketHelpDesk(models.Model):
         """View the Created task """
         return {
             'name': 'Tasks',
-            'domain': [('ticket_id', '=', self.id)],
+            'domain': [('request_id', '=', self.id)],
             'res_model': 'project.task',
             'view_id': False,
             'view_mode': 'tree,form',
@@ -354,33 +354,33 @@ class TicketHelpDesk(models.Model):
         """View the Created invoice"""
         return {
             'name': 'Invoice',
-            'domain': [('ticket_id', '=', self.id)],
+            'domain': [('request_id', '=', self.id)],
             'res_model': 'account.move',
             'view_id': False,
             'view_mode': 'tree,form',
             'type': 'ir.actions.act_window',
         }
 
-    def action_open_merged_tickets(self):
-        """Open the merged tickets tree view"""
-        ticket_ids = self.env['support.ticket'].search(
-            [('merged_ticket', '=', self.id)])
-        helpdesk_ticket_ids = ticket_ids.mapped('display_name')
-        help_ticket_records = self.env['ticket.helpdesk'].search(
-            [('name', 'in', helpdesk_ticket_ids)])
+    def action_open_merged_requests(self):
+        """Open the merged requests tree view"""
+        request_ids = self.env['support.servicerequest'].search(
+            [('merged_request', '=', self.id)])
+        servicerequest_request_ids = request_ids.mapped('display_name')
+        help_request_records = self.env['service.request'].search(
+            [('name', 'in', servicerequest_request_ids)])
         return {
             'type': 'ir.actions.act_window',
-            'name': 'Helpdesk Ticket',
+            'name': 'servicerequest request',
             'view_mode': 'tree,form',
-            'res_model': 'ticket.helpdesk',
-            'domain': [('id', 'in', help_ticket_records.ids)],
+            'res_model': 'service.request',
+            'domain': [('id', 'in', help_request_records.ids)],
             'context': self.env.context,
         }
 
     def action_send_reply(self):
         """Action to sent reply button"""
         template_id = self.env['ir.config_parameter'].sudo().get_param(
-            'odoo_website_helpdesk.reply_template_id'
+            'odoo_website_service_request.reply_template_id'
         )
         template_id = self.env['mail.template'].browse(int(template_id))
         if template_id:
@@ -392,7 +392,7 @@ class TicketHelpDesk(models.Model):
                 'target': 'new',
                 'views': [[False, 'form']],
                 'context': {
-                    'default_model': 'ticket.helpdesk',
+                    'default_model': 'service.request',
                     'default_res_ids': self.ids,
                     'default_template_id': template_id.id
                 }
@@ -405,7 +405,7 @@ class TicketHelpDesk(models.Model):
             'target': 'new',
             'views': [[False, 'form']],
             'context': {
-                'default_model': 'ticket.helpdesk',
+                'default_model': 'service.request',
                 'default_res_ids': self.ids,
             }
         }

@@ -5,13 +5,13 @@ import { _t } from "@web/core/l10n/translation";
 import { Component } from "@odoo/owl";
 import { onMounted, useRef } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
-/** Initializes the HelpDeskDashBoard component**/
-class HelpDeskDashBoard extends Component{
+/** Initializes the ServicerequestDashboard component**/
+class ServicerequestDashboard extends Component{
     /**Set up function**/
     setup() {
         super.setup();
         var self = this;
-        this.ref = useRef("helpDeskDashboard")
+        this.ref = useRef("ServicerequestDashboard")
         this.rpc = useService("rpc");
         this.actionService = useService("action");
         onMounted(this.onMounted);
@@ -24,16 +24,16 @@ class HelpDeskDashBoard extends Component{
     /**To render the charts**/
     render_graphs() {
         var self = this;
-        self.render_tickets_month_graph();
-        self.render_team_ticket_count_graph();
+        self.render_requests_month_graph();
+        self.render_team_request_count_graph();
     }
-    /**Doughnut chart: TICKET STATUS**/
-    render_tickets_month_graph() {
+    /**Doughnut chart: request STATUS**/
+    render_requests_month_graph() {
         var self = this;
-        var ctx = this.ref.el.querySelector('#ticket_month')
-        jsonrpc('/web/dataset/call_kw/service.request/get_tickets_count', {
+        var ctx = this.ref.el.querySelector('#request_month')
+        jsonrpc('/web/dataset/call_kw/service.request/get_requests_count', {
             model: "service.request",
-            method: "get_tickets_view",
+            method: "get_requests_view",
              args: [],
             kwargs: {},
         }).then(function (values) {
@@ -87,13 +87,13 @@ class HelpDeskDashBoard extends Component{
             });
         });
     }
-    /** Bar chart: Team - Tickets Count Ratio **/
-    render_team_ticket_count_graph() {
+    /** Bar chart: Team - requests Count Ratio **/
+    render_team_request_count_graph() {
         var self = this
-        var ctx = this.ref.el.querySelector('.team_ticket_count');
-        jsonrpc('/web/dataset/call_kw/service.request/get_tickets_count', {
+        var ctx = this.ref.el.querySelector('.team_request_count');
+        jsonrpc('/web/dataset/call_kw/service.request/get_requests_count', {
             model: "service.request",
-            method: "get_team_ticket_count_pie",
+            method: "get_team_request_count_pie",
              args: [],
             kwargs: {},
         }).then(function (arrays) {
@@ -150,12 +150,12 @@ class HelpDeskDashBoard extends Component{
             });
         });
     }
-    /** List view of tickets in dashboard **/
+    /** List view of requests in dashboard **/
     render_dashboards() {
         var self = this;
-        jsonrpc('/web/dataset/call_kw/service.request/get_tickets_count', {
+        jsonrpc('/web/dataset/call_kw/service.request/get_requests_count', {
             model: 'service.request',
-            method: 'get_tickets_count',
+            method: 'get_requests_count',
             args: [],
             kwargs: {},
         }).then(function(result) {
@@ -188,15 +188,15 @@ class HelpDeskDashBoard extends Component{
                 $("." + priority + "_count").append(progressBarContainer);
                 $("." + priority + "_count .progress-value").append(progressValue);
             }
-            var tbody = $(".ticket-details");
-            var ticket_details = result.ticket_details;
-            for (var i = 0; i < ticket_details.length; i++) {
-                 /** Get the current ticket object **/
-                var ticket = ticket_details[i];
+            var tbody = $(".request-details");
+            var request_details = result.request_details;
+            for (var i = 0; i < request_details.length; i++) {
+                 /** Get the current request object **/
+                var request = request_details[i];
                 var row = $("<tr></tr>");
                 /** Assuming you have the Base64-encoded image data in a
-                variable called ticket.assigned_image **/
-                var base64Image = ticket.assigned_image;
+                variable called request.assigned_image **/
+                var base64Image = request.assigned_image;
                 var assignedUserCell = $("<td class='td'></td>");
                 var imgElement = $("<img>");
                 /** Set the image source **/
@@ -209,22 +209,22 @@ class HelpDeskDashBoard extends Component{
                 assignedUserCell.append(imgElement);
                 /** Append the assignedUserCell to the row **/
                 row.append(assignedUserCell);
-                row.append("<td class='td'>" + ticket.customer_name + "</td>");
-                row.append("<td class='td'>" + ticket.ticket_name + "</td>");
+                row.append("<td class='td'>" + request.customer_name + "</td>");
+                row.append("<td class='td'>" + request.request_name + "</td>");
                 row.append(assignedUserCell);
-                row.append("<td>" + ticket.assigned_to + "</td>");
-                row.append("<td>" + ticket.subject + "</td>");
-                row.append("<td>" + ticket.priority + "</td>");
+                row.append("<td>" + request.assigned_to + "</td>");
+                row.append("<td>" + request.subject + "</td>");
+                row.append("<td>" + request.priority + "</td>");
                 tbody.append(row);
             }
             $(".response").append(result.response);
-            self.rpc('/help/tickets', {}).then((values) => {
-                $('.pending_tickets').append(values);
+            self.rpc('/help/requests', {}).then((values) => {
+                $('.pending_requests').append(values);
             });
         });
     }
-    /** To show new tickets **/
-    tickets_inbox(ev) {
+    /** To show new requests **/
+    requests_inbox(ev) {
         var self = this;
         ev.stopPropagation();
         ev.preventDefault();
@@ -239,8 +239,8 @@ class HelpDeskDashBoard extends Component{
             target: 'current'
         });
     }
-    /** To show in progress tickets **/
-    tickets_inprogress(ev) {
+    /** To show in progress requests **/
+    requests_inprogress(ev) {
         var self = this;
         ev.stopPropagation();
         ev.preventDefault();
@@ -255,8 +255,8 @@ class HelpDeskDashBoard extends Component{
             target: 'current'
         });
     }
-    /** To show done tickets **/
-    tickets_done(ev) {
+    /** To show done requests **/
+    requests_done(ev) {
         var self = this;
         ev.stopPropagation();
         ev.preventDefault();
@@ -286,5 +286,5 @@ class HelpDeskDashBoard extends Component{
         });
     }
 }
-HelpDeskDashBoard.template = 'DashBoardHelpDesk'
-registry.category("actions").add("service_request_dashboard", HelpDeskDashBoard)
+ServicerequestDashboard.template = 'ServicerequestDashboard'
+registry.category("actions").add("service_request_dashboard", ServicerequestDashboard)

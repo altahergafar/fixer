@@ -1,55 +1,55 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <!-- Template for portal breadcrumbs displaying upcoming tickets -->
-    <template id="portal_my_home_menu_tickets"
-              name="Portal layout : upcoming tickets"
-              inherit_id="portal.portal_breadcrumbs" priority="30">
+    <!-- Template for portal breadcrumbs displaying upcoming requests -->
+    <!-- <template id="portal_my_home_menu_service"
+              name="Portal layout : upcoming requests"
+              inherit_id="portal.portal_breadcrumbs" priority="20">
         <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
-            <li t-if="page_name == 'ticket'">
-                <a t-if="ticket" t-attf-href="/my/tickets">/ servicerequest Tickets
+            <li t-if="page_name == 'request'">
+                <a t-if="request" t-attf-href="/my/requests">/ Service Requests
                 </a>
-                <t t-else="">/ servicerequest Tickets</t>
+                <t t-else="">/ Service Request</t>
             </li>
-            <li t-if="ticket" class="breadcrumb-item active">
+            <li t-if="request" class="breadcrumb-item active">
                 /
                 <t t-esc="details['display_name']"/>
             </li>
         </xpath>
-    </template>
-    <!-- Template for the "Tickets" section in the portal home -->
-    <template id="portal_my_home_servicerequest" name="Tickets"
+    </template> -->
+    <!-- Template for the "requests" section in the portal home -->
+    <template id="portal_my_home_servicerequest" name="requests"
               inherit_id="portal.portal_my_home" priority="1"
               customize_show="True">
         <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
             <t t-call="portal.portal_docs_entry">
-                <t t-set="title">Tickets</t>
-                <t t-set="url" t-value="'/my/tickets'"/>
-                <t t-set="placeholder_count" t-value="'ticket_count'"/>
+                <t t-set="title">Service Request</t>
+                <t t-set="url" t-value="'/my/requests'"/>
+                <t t-set="placeholder_count" t-value="'request_count'"/>
                 <t t-set="icon" t-value="'/odoo_website_service_request/static/description/assets/icons/service-black.png'"/>
-                <t t-set="text">Follow, view or download your servicerequest tickets</t>
+                <t t-set="text">Follow, view or download your Service Request</t>
             </t>
         </xpath>
     </template>
-    <!-- Template for displaying My Tickets portal page -->
-    <template id="portal_my_tickets" name="My Tickets">
+    <!-- Template for displaying My requests portal page -->
+    <template id="portal_my_requests" name="My Request">
         <t t-call="portal.portal_layout">
             <t t-set="breadcrumbs_searchbar" t-value="True"/>
 
             <t t-call="portal.portal_searchbar">
-                <t t-set="title">My Tickets</t>
+                <t t-set="title">My Request</t>
             </t>
-            <t t-call="odoo_website_service_request.ticket_table"/>
+            <t t-call="odoo_website_service_request.request_table"/>
         </t>
     </template>
-    <!-- Template for displaying ticket table -->
+    <!-- Template for displaying request table -->
 
-    <template id="ticket_table">
-        <div class="search_ticket">
-            <t t-if="tickets" t-call="portal.portal_table">
+    <template id="request_table">
+        <div class="search_request">
+            <t t-if="requests" t-call="portal.portal_table">
                 <thead>
                     <tr class="active">
                         <th>
-                            <span class='d-none d-md-inline'>Ticket #</span>
+                            <span class='d-none d-md-inline'>Request #</span>
                         </th>
                         <th class="text-right">Subject</th>
                         <th style="display:none;" class="text-right">Priority
@@ -59,54 +59,54 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <t t-foreach="tickets" t-as="ticket">
+                    <t t-foreach="requests" t-as="request">
                         <tr>
                             <td id="my_selector">
                                 <a id="popover"
-                                   t-attf-href="/my/tickets/{{ticket.id}}">
-                                    <t t-esc="ticket.name" t-value="ticket.id"/>
+                                   t-attf-href="/my/requests/{{request.id}}">
+                                    <t t-esc="request.name" t-value="request.id"/>
                                 </a>
                             </td>
                             <td style="display:none;">
-                                <span t-field="ticket.name"/>
+                                <span t-field="request.name"/>
                             </td>
                             <td style="display:none;">
-                                <span t-field="ticket.subject"/>
+                                <span t-field="request.subject"/>
                             </td>
                             <td style="display:none;">
-                                <span t-field="ticket.description"/>
+                                <span t-field="request.description"/>
                             </td>
                             <td style="display:none;">
-                                <span t-field="ticket.cost"/>
+                                <span t-field="request.cost"/>
                             </td>
                             <td class="text-right">
-                                <span t-field="ticket.subject"/>
+                                <span t-field="request.subject"/>
                             </td>
                             <td class="text-right" style="display:none;">
-                                <span t-field="ticket.priority"/>
+                                <span t-field="request.priority"/>
                             </td>
                             <td class="text-right">
-                                <span t-field="ticket.create_date"
+                                <span t-field="request.create_date"
                                       t-options="{'widget': 'date'}"/>
                                 &amp;nbsp;
                                 <span class='d-none d-md-inline'
-                                      t-field="ticket.create_date"
+                                      t-field="request.create_date"
                                       t-options="{'time_only': True}"/>
                             </td>
-                            <td class="text-right">
+                            <!-- <td class="text-right">
                                 <span t-field="service.request.stage_id.name"/>
-                            </td>
+                            </td> -->
                         </tr>
                     </t>
                 </tbody>
             </t>
             <p t-else="">
-                There are currently no tickets issued for your account.
+                There are currently no Requests issued for your account.
             </p>
         </div>
     </template>
-    <!-- Template for displaying ticket details -->
-    <template id="portal_ticket_details" name="My Tickets">
+    <!-- Template for displaying request details -->
+    <template id="portal_request_details" name="My Request">
         <t t-call="portal.portal_layout">
             <div class="row mt16 o_portal_sale_sidebar">
                 <!-- Sidebar -->
@@ -121,7 +121,7 @@
                         <ul class="list-group list-group-flush flex-wrap flex-row flex-lg-column">
                             <li class="list-group-item d-grid align-content-start">
                                 <a class="btn btn-primary fa fa-download"
-                                   t-attf-href="/my/tickets/download/{{details.id}}"
+                                   t-attf-href="/my/requests/download/{{details.id}}"
                                    target="_blank" style="margin-right: 10px;">
                                     Download
                                 </a>
@@ -155,7 +155,7 @@
                         <div t-call="odoo_website_service_request.servicerequest_content_preview"/>
                     </div>
                     <!-- chatter -->
-                    <div id="servicerequest_ticket_communication" class="mt-4">
+                    <div id="servicerequest_request_communication" class="mt-4">
                         <h2>History</h2>
                         <t t-call="portal.message_thread">
                             <t t-set="object" t-value="details"/>
@@ -165,8 +165,8 @@
             </div>
         </t>
     </template>
-    <!-- Template for displaying ticket content preview -->
-    <template id="servicerequest_content_preview" name="Sales Order Portal Content">
+    <!-- Template for displaying request content preview -->
+    <template id="servicerequest_content_preview" name="Service Request Portal Content">
         <div id="introduction"
              t-attf-class="pb-2 pt-3 #{'card-header bg-white' if report_type == 'html' else ''}"
              style="height:700px;">
@@ -180,9 +180,9 @@
             </div>
             <table class="table table-borderless">
                 <tr>
-                    <th>Ticket Type</th>
+                    <th>request Type</th>
                     <td>
-                        <t t-esc="details['ticket_type_id'].name"/>
+                        <t t-esc="details['request_type_id'].name"/>
                     </td>
                     <th>Create Date</th>
                     <td>
@@ -200,7 +200,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>Ticket Subject</th>
+                    <th>request Subject</th>
                     <td>
                         <t t-esc="details['subject']"/>
                     </td>
@@ -246,13 +246,13 @@
             </table>
         </div>
     </template>
-    <!--        Template for displaying tickets grouped by certain criteria in a table format.-->
-    <template id="ticket_group_by_table">
-        <t t-if="tickets" t-call="portal.portal_table">
+    <!--        Template for displaying requests grouped by certain criteria in a table format.-->
+    <template id="request_group_by_table">
+        <t t-if="requests" t-call="portal.portal_table">
             <thead>
                 <tr class="active">
                     <th>
-                        <span class="d-none d-md-inline">Ticket #</span>
+                        <span class="d-none d-md-inline">request #</span>
                     </th>
                     <th class="text-right">Subject</th>
                     <th style="display:none;" class="text-right">Priority
@@ -262,22 +262,22 @@
                 </tr>
             </thead>
             <tbody>
-                <t t-foreach="tickets" t-as="ticket">
+                <t t-foreach="requests" t-as="request">
                     <tr>
-                        <t t-if="ticket['name'] != '' ">
+                        <t t-if="request['name'] != '' ">
                             <th class="table-light" colspan="4">
-                                <t t-esc="ticket['name']"/>
+                                <t t-esc="request['name']"/>
                             </th>
                         </t>
                     </tr>
-                    <t t-foreach="ticket['data']" t-as="ticket">
-                        <t t-foreach="ticket" t-as="data">
+                    <t t-foreach="request['data']" t-as="request">
+                        <t t-foreach="request" t-as="data">
 
                             <tr>
                                 <td id="my_selector">
                                     <a id="popover"
-                                       t-attf-href="/my/tickets/{{ticket.id}}">
-                                        <t t-esc="ticket.name" t-value="ticket.id"/>
+                                       t-attf-href="/my/requests/{{request.id}}">
+                                        <t t-esc="request.name" t-value="request.id"/>
                                     </a>
                                 </td>
                                 <td style="display:none;">
@@ -315,7 +315,7 @@
                 </t>
             </tbody>
         </t>
-        <p t-else="">There are currently no tickets issued for your
+        <p t-else="">There are currently no requests issued for your
             account.
         </p>
     </template>

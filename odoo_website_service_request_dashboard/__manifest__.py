@@ -23,7 +23,7 @@
     'name': "Website Service Request Dashboard",
     'version': '17.0.1.0.0',
     'category': 'Website',
-    'summary': """Helpdesk Support Ticket Management Dashboard""",
+    'summary': """Helpdesk Support request Management Dashboard""",
     'description': """Website HelpDesk Dashboard Module Brings a Multipurpose"""
                    """Graphical Dashboard for Website HelpDesk module""",
     'author': "Cybrosys Techno Solutions",

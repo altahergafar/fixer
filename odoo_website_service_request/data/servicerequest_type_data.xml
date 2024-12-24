@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
-        <!--    Record for a servicerequest ticket type representing a general question.-->
-        <record id="ticket_type_1" model="servicerequest.type">
+        <!--    Record for a servicerequest request type representing a general question.-->
+        <record id="request_type_1" model="servicerequest.type">
             <field name="name">Question</field>
         </record>
-        <!--     Record for a servicerequest ticket type representing an issue.-->
-        <record id="ticket_type_2" model="servicerequest.type">
+        <!--     Record for a servicerequest request type representing an issue.-->
+        <record id="request_type_2" model="servicerequest.type">
             <field name="name">Issue</field>
         </record>
-        <!--        Record for a servicerequest ticket type representing a repair request.-->
-        <record id="ticket_type_3" model="servicerequest.type">
+        <!--        Record for a servicerequest request type representing a repair request.-->
+        <record id="request_type_3" model="servicerequest.type">
             <field name="name">Repair</field>
         </record>
-        <!--        Record for a servicerequest ticket type representing a maintenance request.-->
-        <record id="ticket_type_4" model="servicerequest.type">
+        <!--        Record for a servicerequest request type representing a maintenance request.-->
+        <record id="request_type_4" model="servicerequest.type">
             <field name="name">Maintenance</field>
         </record>
     </data>

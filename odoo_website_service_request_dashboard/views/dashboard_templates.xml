@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-<!--    Template for view all tickets in list view-->
-    <template id="dashboard_tickets" name="Pending Tickets template">
-        <t t-foreach="h_tickets" t-as="ticket">
-            <div class="tickets_list" t-att-id="ticket['id']"
-                 t-att-value="ticket['id']">
-                <t t-esc="ticket['name']+' | '+ticket['subject']"/>
+<!--    Template for view all requests in list view-->
+    <template id="dashboard_requests" name="Pending requests template">
+        <t t-foreach="h_requests" t-as="request">
+            <div class="requests_list" t-att-id="request['id']"
+                 t-att-value="request['id']">
+                <t t-esc="request['name']+' | '+request['subject']"/>
             </div>
         </t>
     </template>
-<!--    Table for ticket in dashboard-->
-    <template id="dashboard_ticket_detailed" name="Tickets template">
-        <t t-foreach="h_tickets" t-as="ticket">
+<!--    Table for request in dashboard-->
+    <template id="dashboard_request_detailed" name="requests template">
+        <t t-foreach="h_requests" t-as="request">
             <div class="col-xs-12 " style="padding:0;">
-                <div class="ticket_box_head">
-                    <t t-esc="ticket['name']+' - ('+ticket['create_date'].strftime('%d-%b-%y')"/>
+                <div class="request_box_head">
+                    <t t-esc="request['name']+' - ('+request['create_date'].strftime('%d-%b-%y')"/>
                     )
                 </div>
             </div>
             <div class="row m-4 pt-3 w-75">
                 <div class="col-sm-6 col-md-3-12 col-md-6 col-lg-6 ">
-                    <h3 class="ticket_name">
-                        Ticket Name :
-                        <t t-esc="ticket['name']"/>
+                    <h3 class="request_name">
+                        request Name :
+                        <t t-esc="request['name']"/>
                     </h3>
-                    <h3 class="ticket_subject">
-                        Ticket Issue :
-                        <t t-esc="ticket['subject']"/>
+                    <h3 class="request_subject">
+                        request Issue :
+                        <t t-esc="request['subject']"/>
                     </h3>
                 </div>
                 <div class="col-sm-6 col-md-3-12 col-md-6 col-lg-3">
-                    <h4 class="ticket_customer">
-                        <t t-if="ticket['customer_name']">
+                    <h4 class="request_customer">
+                        <t t-if="request['customer_name']">
                             Customer :
-                            <t t-esc="ticket['customer_name']"/>
+                            <t t-esc="request['customer_name']"/>
                         </t>
                     </h4>
-                    <h4 class="ticket_subject">
+                    <h4 class="request_subject">
                         Description :
-                        <t t-esc="ticket['description']"/>
+                        <t t-esc="request['description']"/>
                     </h4>
                 </div>
             </div>

@@ -26,5 +26,5 @@ class AccountMove(models.Model):
     """Inheriting the account.move model"""
     _inherit = 'account.move'
 
-    ticket_id = fields.Many2one('service.request',
-                                string='Ticket', help='ID of the ticket.')
+    request_id = fields.Many2one('service.request',
+                                string='request', help='ID of the request.')

@@ -4,16 +4,16 @@
     <template id="servicerequest_website_inherit"
               inherit_id="portal.portal_searchbar">
         <xpath expr="//div[@id='o_portal_navbar_content']" position="after">
-            <div t-if="tickets" id="ticket">
+            <div t-if="requests" id="request">
                 <select id="group_select" class="btn btn-secondary">
                     <option value="0" style="color:gray;">Group by</option>
                     <option value="1">Stage</option>
-                    <option value="2">Ticket type</option>
+                    <option value="2">Request type</option>
                 </select>
-                <input type="text" placeholder="Enter Ticket Number"
+                <input type="text" placeholder="Enter Request Number"
                        id="search_box"/>
                 <button type="button" class="btn btn-secondary"
-                        id="search_ticket" t-on-click="onClick">Search
+                        id="search_request" t-on-click="onClick">Search
                 </button>
             </div>
         </xpath>

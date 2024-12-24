@@ -5,7 +5,7 @@
     var item_text = "";
     if (self.parentElement.parentElement.children[3]) {
       item_text =
-        "Ticket : " +
+        "request : " +
         self.parentElement.parentElement.children[1].outerText +
         "<br/>" +
         "Subject : " +
@@ -25,7 +25,7 @@
       html: true,
       placement: "right",
       trigger: "hover",
-      title: "Ticket Details",
+      title: "request Details",
       content: "<span>" + item_text + "</span>",
     });
   });

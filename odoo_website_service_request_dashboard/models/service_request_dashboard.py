@@ -23,8 +23,8 @@ import calendar
 from odoo import api, models
 
 
-class TicketHelpdesk(models.Model):
-    """ Inherited class to get help desk ticket details...."""
+class requestHelpdesk(models.Model):
+    """ Inherited class to get help desk request details...."""
     _inherit = 'service.request'
 
     @api.model
@@ -36,24 +36,24 @@ class TicketHelpdesk(models.Model):
         return False
 
     @api.model
-    def get_tickets_count(self):
-        """ Function To Get The Ticket Count"""
-        ticket_details = self.env['service.request'].search([])
-        ticket_data = []
-        for ticket in ticket_details:
-            ticket_data.append({
-                'ticket_name': ticket.name,
-                'customer_name': ticket.customer_id.name,
-                'subject': ticket.subject,
-                'priority': ticket.priority,
-                'assigned_to': ticket.assigned_user_id.name,
-                'assigned_image': ticket.assigned_user_id.image_1920,
+    def get_requests_count(self):
+        """ Function To Get The request Count"""
+        request_details = self.env['service.request'].search([])
+        request_data = []
+        for request in request_details:
+            request_data.append({
+                'request_name': request.name,
+                'customer_name': request.customer_id.name,
+                'subject': request.subject,
+                'priority': request.priority,
+                'assigned_to': request.assigned_user_id.name,
+                'assigned_image': request.assigned_user_id.image_1920,
             })
-        tickets_new_count = self.env['service.request'].search_count(
+        requests_new_count = self.env['service.request'].search_count(
             [('stage_id.name', 'in', ['Inbox', 'Draft'])])
-        tickets_in_progress_count = self.env['service.request'].search_count(
+        requests_in_progress_count = self.env['service.request'].search_count(
             [('stage_id.name', '=', 'In Progress')])
-        tickets_closed_count = self.env['service.request'].search_count(
+        requests_closed_count = self.env['service.request'].search_count(
             [('stage_id.name', '=', 'Done')])
         very_low_count = self.env['service.request'].search_count([
             ('priority', '=', '0')])
@@ -73,82 +73,82 @@ class TicketHelpdesk(models.Model):
         response = self.env['service.request'].search_count([
             ('review', '!=', None)])
         teams_count = self.env['team.servicerequest'].search_count([])
-        tickets = self.env['service.request'].search(
+        requests = self.env['service.request'].search(
             [('stage_id.name', 'in', ['Inbox', 'Draft'])])
-        p_tickets = []
-        for ticket in tickets:
-            p_tickets.append(ticket.name)
+        p_requests = []
+        for request in requests:
+            p_requests.append(request.name)
         values = {
-            'inbox_count': tickets_new_count,
-            'progress_count': tickets_in_progress_count,
-            'done_count': tickets_closed_count,
+            'inbox_count': requests_new_count,
+            'progress_count': requests_in_progress_count,
+            'done_count': requests_closed_count,
             'team_count': teams_count,
-            'p_tickets': p_tickets,
+            'p_requests': p_requests,
             'very_low_count1': very_low_count1,
             'low_count1': low_count1,
             'normal_count1': normal_count1,
             'high_count1': high_count1,
             'very_high_count1': very_high_count1,
             'response': response,
-            'ticket_details': ticket_data,
+            'request_details': request_data,
         }
         return values
 
     @api.model
-    def get_tickets_view(self):
-        """ Function To Get The Ticket View"""
-        tickets_new_count = self.env['service.request'].search_count(
+    def get_requests_view(self):
+        """ Function To Get The request View"""
+        requests_new_count = self.env['service.request'].search_count(
             [('stage_id.name', 'in', ['Inbox', 'Draft'])])
-        tickets_in_progress_count = self.env['service.request'].search_count(
+        requests_in_progress_count = self.env['service.request'].search_count(
             [('stage_id.name', '=', 'In Progress')])
-        tickets_closed_count = self.env['service.request'].search_count(
+        requests_closed_count = self.env['service.request'].search_count(
             [('stage_id.name', '=', 'Done')])
         teams_count = self.env['team.servicerequest'].search_count([])
-        tickets_new = self.env['service.request'].search(
+        requests_new = self.env['service.request'].search(
             [('stage_id.name', 'in', ['Inbox', 'Draft'])])
-        tickets_in_progress = self.env['service.request'].search(
+        requests_in_progress = self.env['service.request'].search(
             [('stage_id.name', '=', 'In Progress')])
-        tickets_closed = self.env['service.request'].search(
+        requests_closed = self.env['service.request'].search(
             [('stage_id.name', '=', 'Done')])
         teams = self.env['team.servicerequest'].search([])
         new_list = []
         progress_list = []
         done_list = []
         teams_list = []
-        for new in tickets_new:
+        for new in requests_new:
             new_list.append(str(new.name) + ' : ' + str(new.subject))
-        for progress in tickets_in_progress:
+        for progress in requests_in_progress:
             progress_list.append(
                 str(progress.name) + ' : ' + str(progress.subject))
-        for done in tickets_closed:
+        for done in requests_closed:
             done_list.append(str(done.name) + ' : ' + str(done.subject))
         for team in teams:
             teams_list.append(team.name)
-        tickets = self.env['service.request'].search(
+        requests = self.env['service.request'].search(
             [('stage_id.name', 'in', ['Inbox', 'Draft'])])
-        p_tickets = []
-        for ticket in tickets:
-            p_tickets.append(ticket.name)
+        p_requests = []
+        for request in requests:
+            p_requests.append(request.name)
         values = {
-            'inbox_count': tickets_new_count,
-            'progress_count': tickets_in_progress_count,
-            'done_count': tickets_closed_count,
+            'inbox_count': requests_new_count,
+            'progress_count': requests_in_progress_count,
+            'done_count': requests_closed_count,
             'team_count': teams_count,
             'new_tkts': new_list,
             'progress': progress_list,
             'done': done_list,
             'teams': teams_list,
-            'p_tickets': p_tickets
+            'p_requests': p_requests
         }
         return values
 
     @api.model
-    def get_ticket_month_pie(self):
+    def get_request_month_pie(self):
         """For pie chart"""
         month_count = []
         month_value = []
-        tickets = self.env['service.request'].search([])
-        for rec in tickets:
+        requests = self.env['service.request'].search([])
+        for rec in requests:
             month = rec.create_date.month
             if month not in month_value:
                 month_value.append(month)
@@ -168,20 +168,20 @@ class TicketHelpdesk(models.Model):
         return month
 
     @api.model
-    def get_team_ticket_count_pie(self):
+    def get_team_request_count_pie(self):
         """For bar chart"""
-        ticket_count = []
+        request_count = []
         team_list = []
-        tickets = self.env['service.request'].search([])
-        for rec in tickets:
+        requests = self.env['service.request'].search([])
+        for rec in requests:
             if rec.team_id:
                 team = rec.team_id.name
                 if team not in team_list:
                     team_list.append(team)
-                ticket_count.append(team)
+                request_count.append(team)
         team_val = []
         for index in range(len(team_list)):
-            value = ticket_count.count(team_list[index])
+            value = request_count.count(team_list[index])
             team_name = team_list[index]
             team_val.append({'label': team_name, 'value': value})
         name = []

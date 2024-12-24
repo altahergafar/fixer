@@ -14,8 +14,8 @@
                 <t t-set="base_url"
                    t-value="request.env['ir.config_parameter'].sudo().get_param('web.base.url')"/>
                 <h6>
-                    <a t-attf-href="{{base_url}}/my/tickets/{{object.id}}"
-                       class="btn btn-primary">View Ticket
+                    <a t-attf-href="{{base_url}}/my/requests/{{object.id}}"
+                       class="btn btn-primary">View request
                     </a>
                 </h6>
                 <table class="table table-light" width="100%">

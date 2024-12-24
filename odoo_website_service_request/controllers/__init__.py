@@ -21,7 +21,7 @@
 ##############################################################################
 from . import odoo_website_service_request
 from . import portal
-from . import ticket_group_by
-from . import ticket_search
+from . import request_group_by
+from . import request_search
 from . import website_form
-from . import website_ticket
+from . import website_request
