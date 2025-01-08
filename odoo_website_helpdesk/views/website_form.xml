@@ -7,6 +7,7 @@
         <field name="parent_id" ref="website.main_menu"/>
         <field name="sequence" type="int">55</field>
     </record>
+    
     <!--For displaying a "Thank You" message after a helpdesk ticket is submitted. -->
     <record id="odoo_website_helpdesk.helpdesk_thanks" model="website.page">
         <field name="name">Thanks (Helpdesk)</field>
