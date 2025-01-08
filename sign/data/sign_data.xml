@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!-- Tour template -->
-    <record id="attachment_sign_tour" model="ir.attachment">
+    <!-- <record id="attachment_sign_tour" model="ir.attachment">
         <field name="name">Sample Contract.pdf</field>
         <field name="datas" type="base64" file="sign/static/demo/sample_contract.pdf"/>
         <field name="mimetype">application/pdf</field>
@@ -9,7 +9,7 @@
     <record id="template_sign_tour" model="sign.template">
         <field name="attachment_id" ref="attachment_sign_tour"/>
         <field name="active" eval="False"/>
-    </record>
+    </record> -->
 
     <!-- Reminder CRON -->
     <record model="ir.cron" id="sign_reminder_cron">
