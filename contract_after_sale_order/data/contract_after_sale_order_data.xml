@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="email_template_contract" model="mail.template">
+        <field name="name">Contract Email Template</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="subject">Contract for ${object.name}</field>
+        <field name="email_to">${object.partner_id.email}</field>
+        <field name="body_html">
+            <![CDATA[
+            <p>Dear ${object.partner_id.name},</p>
+            <p>Please find the contract for your ${object.name} attached.</p>
+            <p>Thank you for your business!</p>
+            ]]>
+        </field>
+    </record>
+</odoo>
+

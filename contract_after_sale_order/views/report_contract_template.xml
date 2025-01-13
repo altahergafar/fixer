@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<odoo>
+    <report 
+        id="action_report_contract_sale_id"
+        model="sale.order"
+        string="Contract"
+        report_type="qweb-pdf"
+        name="contract_after_sale_order.report_contract_template"
+        file="contract_after_sale_order.report_contract_template"
+        print_report_name="'Contract_%s' % (object.name)"
+    />
+
+    <template id="report_contract_template">
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <h2>Contract Agreement</h2>
+                <p><strong>Customer:</strong> <t t-esc="doc.partner_id.name"/></p>
+                <p><strong>Sale Order:</strong> <t t-esc="doc.name"/></p>
+                <p><strong>Total:</strong> <t t-esc="doc.amount_total"/> <t t-esc="doc.currency_id.symbol"/></p>
+                <p>Thank you for your business!</p>
+            </div>
+        </t>
+    </template>
+</odoo>
