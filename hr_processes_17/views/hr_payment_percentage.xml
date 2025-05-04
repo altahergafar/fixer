@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!-- hr bonus request -->
+    <record id="hr_payment_percentage_view_form" model="ir.ui.view">
+        <field name="name">hr.payment.percentage.view.form</field>
+        <field name="model">hr.payment.percentage</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button string="Confirme" name="confirmed_action" type="object" class="oe_highlight" invisible="state != 'draft'"/>
+                    <button string="Approved" name="approved_action" type="object" class="oe_highlight" invisible="state != 'confirmed'"/>
+                    <button string="Refused" name="refused_action" type="object" class="oe_highlight" invisible="state != 'in_progress'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="employee_id" readonly="state == 'payslip'"/>
+                            <field name="payment_perc_date" readonly="state == 'payslip'"/>
+                        </group>
+                        <group>
+                            <field name="date_creation_payment" readonly="state == 'payslip'"/> 
+                            
+                            <field name="payment_perc_reson" readonly="state == 'payslip'"/>
+                        </group>
+                    </group>
+                    <group string="Payment Info">
+                        <group>
+                            <!-- <field name="invoice_id" /> -->
+                            <field name="payment_id" readonly="state == 'payslip'"/>
+                            
+                        </group>
+                        <group>
+                            <field name="percentage"  widget="percentage" readonly="state == 'payslip'"/>
+                            <field name="payment_perc_amount" readonly="state == 'payslip'"/>
+                        </group>
+                    </group>
+                    <group>
+                        
+                        <group>
+                            <field name="user_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Notes">
+                            <field name="note" />
+                        </page>
+                        
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="hr_payment_percentage_view_tree" model="ir.ui.view">
+        <field name="name">hr.payment.percentage.view.tree</field>
+        <field name="model">hr.payment.percentage</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="employee_id" /> 
+                <field name="payment_perc_date" />
+                <field name="payment_perc_amount" />
+            </tree>
+        </field>
+    </record>
+    <record id="hr_payment_percentage_action" model="ir.actions.act_window">
+        <field name="name">Payment Percentage</field>
+        <field name="res_model">hr.payment.percentage</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+   
+    <menuitem
+        id="payment_percentage_menu"
+        name="Payment Percentage"
+        action="hr_payment_percentage_action"
+        parent="hr_processes_17.hr_processes_menu"
+        sequence="11"/>
+
+    
+</odoo>

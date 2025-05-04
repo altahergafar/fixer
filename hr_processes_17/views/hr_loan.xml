@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!-- hr loan -->
+    <record id="hr_loan_view_form" model="ir.ui.view">
+        <field name="name">hr.loan.view.form</field>
+        <field name="model">hr.loan.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div>
+                        <label for="name"/>
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <field name="loan_salary_rule_id" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="hr_loan_action" model="ir.actions.act_window">
+        <field name="name">Loan Type</field>
+        <field name="res_model">hr.loan.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+    <menuitem
+        id="hr_loan_menu"
+        name="Loan Type"
+        action="hr_loan_action"
+        parent="hr_processes_17.hr_process_settings"
+        sequence="11"/>
+
+<!-- hr loan request -->
+    <record id="hr_loan_request_view_form" model="ir.ui.view">
+        <field name="name">hr.loan.request.view.form</field>
+        <field name="model">hr.loan.request</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button string="Compute Installments" name="request_line_installments" type="object" class="oe_highlight" invisible="state != 'confirme'" />
+                    <button string="Confirmed" name="confirme_action" type="object" class="oe_highlight" invisible="state != 'draft'"/>
+                    <button string="Fully Paid" name="full_paid_action" type="object" class="oe_highlight" invisible="state != 'computed'"/>
+                    <button string="cancel" name="cancel_action" type="object"  invisible="state not in ('full_paid','confirme','draft')"/>
+                    <button string="Reset To Draft" name="reset_to_draft_action" type="object" class="oe_highlight" invisible="state not in ('confirme','computed','full_paid')"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="employee_id" required="1" readonly="state in ('computed','full_paid','cancel')"/> 
+                            <field name="loan_type_id" required="1" readonly="state in ('computed','full_paid','cancel')"/>
+                            <field name="date_loan" required="1" readonly="state in ('computed','full_paid','cancel')"/>
+                        </group>
+                        <group>
+                            <field name="date_creation_loan" readonly="state in ('computed','full_paid','cancel')" />
+                            <field name="loan_amount" required="1" readonly="state in ('computed','full_paid','cancel')"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="no_months" readonly="state in ('computed','full_paid','cancel')"/>
+                            <field name="loan_reson" readonly="state in ('computed','full_paid','cancel')"/>
+                           
+                        </group>
+                        <group col="4">
+                            <field name="payment_st_date" required="1" readonly="state in ('computed','full_paid','cancel')"/>
+                            <field name="payment_ex_date"/>
+                             <field name="user_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Loan Installments">
+                            <field name="request_line_id" widget="one2many" nolabel="1" readonly="1">
+                                <tree>
+                                    <field name="installment_date" readonly="1"/>
+                                    <field name="installment_amount" readonly="1"/>
+                                    <field name="installment_done" readonly="1"/>
+                                    <field name="loan_id" column_invisible="True" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Accounting Information">
+                            <group>
+                                <group>
+                                    <field name="journal_id" readonly="state in ('full_paid','cancel')" />
+                                    <field name="move_id" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="company_id" readonly="1"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Notes">
+                            <field name="note" />
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="hr_loan_request_view_tree" model="ir.ui.view">
+        <field name="name">hr.loan.request.view.tree</field>
+        <field name="model">hr.loan.request</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="employee_id" /> 
+                <field name="loan_type_id" />
+                <field name="loan_amount" />
+            </tree>
+        </field>
+    </record>
+    <record id="hr_loan_request_action" model="ir.actions.act_window">
+        <field name="name">Loan Request</field>
+        <field name="res_model">hr.loan.request</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+    <menuitem
+        id="hr_loan_request_menu"
+        name="Loan Request"
+        parent="hr_processes_17.hr_processes_menu"
+        action="hr_loan_request_action"
+        sequence="12"/>
+    
+
+</odoo>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!-- loan -->
+    <record id="hr_loan_sequence" model="ir.sequence">
+        <field name="name">Loan Request</field>
+        <field name="code">loan.request.seq</field>
+        <field name="prefix">Loan /%(year)s/</field>
+        <field name="padding">2</field>
+        <field name="number_increment">1</field>
+        <field name="use_date_range">True</field>
+        <field name="implementation">standard</field>
+    </record>
+<!-- bonus -->
+    <record id="hr_bonus_sequence" model="ir.sequence">
+        <field name="name">Bonus Request</field>
+        <field name="code">bonus.request.seq</field>
+        <field name="prefix">Bonus /%(year)s/</field>
+        <field name="padding">2</field>
+        <field name="number_increment">1</field>
+        <field name="use_date_range">True</field>
+        <field name="implementation">standard</field>
+    </record>
+<!-- panalty -->
+    <record id="hr_penalty_sequence" model="ir.sequence">
+        <field name="name">Penalty Request</field>
+        <field name="code">penalty.request.seq</field>
+        <field name="prefix">Penalty /%(year)s /</field>
+        <field name="padding">2</field>
+        <field name="number_increment">1</field>
+        <field name="use_date_range">True</field>
+        <field name="implementation">standard</field>
+    </record>
+
+<!-- payment percentage -->
+    <record id="hr_payment_percentage_sequence" model="ir.sequence">
+        <field name="name">Payment Percentage</field>
+        <field name="code">hr.payment.percentage.seq</field>
+        <field name="prefix">Percent/%(year)s /</field>
+        <field name="padding">2</field>
+        <field name="number_increment">1</field>
+        <field name="use_date_range">True</field>
+        <field name="implementation">standard</field>
+    </record>
+</odoo>

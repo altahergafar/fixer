@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!-- hr bonus -->
+    <record id="hr_bonus_view_form" model="ir.ui.view">
+        <field name="name">hr.bonus.view.form</field>
+        <field name="model">hr.bonus.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    
+                    <div>
+                        <label for="name"/>
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <field name="bonus_salary_rule_id" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="hr_bonus_action" model="ir.actions.act_window">
+        <field name="name">Bonus Type</field>
+        <field name="res_model">hr.bonus.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+   
+
+<!-- hr bonus request -->
+    <record id="hr_bonus_request_view_form" model="ir.ui.view">
+        <field name="name">hr.bonus.request.view.form</field>
+        <field name="model">hr.bonus.request</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button string="Confirme" name="confirmed_action" type="object" class="oe_highlight" invisible="state != 'draft'"/>
+                    <button string="Approved" name="approved_action" type="object" class="oe_highlight" invisible="state != 'confirmed'"/>
+                    <button string="Refused" name="refused_action" type="object" class="oe_highlight" invisible="state != 'in_progress'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="employee_id" readonly="state == 'payslip'"/>
+                            <field name="bonus_type_id" readonly="state == 'payslip'"/>
+                            <field name="date_bonus" readonly="state == 'payslip'"/>
+                        </group>
+                        <group>
+                            <field name="date_creation_bouns" readonly="state == 'payslip'"/> 
+                            <field name="bonus_amount" readonly="state == 'payslip'"/>
+                            <field name="bonus_reson" readonly="state == 'payslip'"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="user_id" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Notes">
+                            <field name="note" />
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="hr_bonus_request_view_tree" model="ir.ui.view">
+        <field name="name">hr.bonus.request.view.tree</field>
+        <field name="model">hr.bonus.request</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="employee_id" /> 
+                <field name="bonus_type_id" />
+                <field name="date_bonus" />
+                <field name="bonus_amount" />
+            </tree>
+        </field>
+    </record>
+    <record id="hr_bonus_request_action" model="ir.actions.act_window">
+        <field name="name">Bonus Request</field>
+        <field name="res_model">hr.bonus.request</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+   
+    <menuitem
+        id="hr_processes_menu"
+        name="Hr Processes"
+        web_icon="hr_processes_17,static/description/icon.png"
+        sequence="78"/>
+
+    <menuitem
+        id="hr_process_settings"
+        name="Configuration"
+        parent="hr_processes_17.hr_processes_menu"
+        sequence="60"/>
+
+    <menuitem
+        id="hr_bonus_request_menu"
+        name="Bonus Request"
+        parent="hr_processes_menu"
+        action="hr_bonus_request_action"
+        sequence="10"/>
+    
+    <menuitem
+        id="hr_bonus_menu"
+        name="Bonus Type"
+        action="hr_bonus_action"
+        parent="hr_processes_17.hr_process_settings"
+        sequence="10"/>
+
+</odoo>

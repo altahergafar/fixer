@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_loan_request_line_form" model="ir.ui.view">
+        <field name="name">hr.loan.request.line.view.form</field>
+        <field name="model">hr.loan.request.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="loan_id" />
+                            <field name="employee_id" />
+                        </group>
+                        <group>
+                            <field name="installment_amount" />
+                            <field name="installment_date" />
+                        </group>
+                        <group>
+                            <field name="installment_done" />
+                        </group>                       
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="hr_loan_request_line_view_tree" model="ir.ui.view">
+        <field name="name">Loan Installments</field>
+        <field name="model">hr.loan.request.line</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="installment_amount" />
+                <field name="installment_date" />
+                <field name="installment_done" />
+                <field name="loan_id" />
+                <field name="employee_id" />
+            </tree>
+        </field>
+    </record>
+    <record id="inherit_view_id_inherit_hr_payslip" model="ir.ui.view">
+        <field name="name">hr.payslip.view.form.inherit</field>
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='employee_id']" position="after">
+                <field name="loan_payslip_amount" invisible="1"/>
+                <field name="bonus_payslip_amount" invisible="1"/>
+                <field name="penalty_payslip_amount" invisible="1"/>
+                <field name="percent_payslip_amount" invisible="1"/>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_loan" type="object" class="oe_stat_button" icon="fa-money">
+                    <field name="loan_installment_count" string="Loan Installments" widget="statinfo"/>
+                </button>
+                <button name="action_bonus" type="object" class="oe_stat_button" icon="fa-money">
+                    <field name="bonus_amount_cont" string="Bonuses" widget="statinfo"/>
+                </button>
+                <button name="action_penalty" type="object" class="oe_stat_button" icon="fa-money">
+                    <field name="penalty_amount_cont" string="Penalties" widget="statinfo"/>
+                </button>
+                <button name="action_percent" type="object" class="oe_stat_button" icon="fa-money">
+                    <field name="percent_amount_cont" string="Percents" widget="statinfo"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

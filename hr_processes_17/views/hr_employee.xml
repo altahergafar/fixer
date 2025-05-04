@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_id_inherit_hr_employee_processes" model="ir.ui.view">
+        <field name="name">hr.employee.view.form.inherit</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_employee_penalty" type="object" class="oe_stat_button" icon="fa-money">
+                    <field name="penalty_count" string="Penalties" widget="statinfo"/>
+                </button>
+                <button name="action_employee_bonus" type="object" class="oe_stat_button" icon="fa-money">
+                    <field name="bonus_count" string="Bonuses" widget="statinfo"/>
+                </button>
+                <button name="action_employee_loan" type="object" class="oe_stat_button" icon="fa-money">
+                    <field name="loan_count" string="Loans" widget="statinfo"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
